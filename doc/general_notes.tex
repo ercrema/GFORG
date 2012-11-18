@@ -1,0 +1,181 @@
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[round]{natbib}
+\usepackage{graphicx}
+\usepackage{color}
+
+\newcommand{\todo}[1]{
+	\textcolor{blue}{\textbf{#1}}
+}
+
+
+\begin{document}
+
+\title{Group formation dynamics and violence} %No idea on the title...
+\author{Enrico R. Crema \and Xavier Rubio-Campillo}
+
+\date{\today}
+
+\maketitle
+
+\section{Assumptions and Expectations}
+
+\subsection{Unimodal Fitness Curve}
+
+The first assumption is that group size determine the fitness of each individual, with both positive and negative forces acting to each individual. More generally:
+
+\vspace{10 mm}
+{\bf A1.}\emph{Positive frequency dependence dominate small groups and negative frequency dependence dominate larger groups (Allee Effect)}
+\vspace{10 mm}
+
+
+%Perhaps later on relax this assumption with other curves?
+
+Can use the following model \citep{greene2001}:
+
+\begin{equation}
+\label{groupfitness}
+\phi=Q-B(n-M)^2
+\end{equation}
+
+where $\phi$ is the pre-capita fitness, $n$ is the group size, $M$ is the optimal group size, and $Q$ and $B$ are scaling parameters.
+
+The curve reaches its peak when $n=M$ and have two points where F is identical: 1) when $n=0$; and 2) when $n=2M$
+
+\vspace{10 mm}
+{\bf E1.} \emph{The expected equilibrium group size is when $\phi(n)=\phi(1)$, in the specific case when $n=2M$}
+\vspace{10 mm}
+
+
+This is derived as follows. Given a group of size smaller the optimal size, but bigger than 1. The group will be invaded by joiners, who will increase the fitness of incumbent and new members. Once a group reaches its optimal size, however, there will be conflict of interest: incumbent member will experience a decline in fitness, while joiners will still haven increase in fitness, given that they have $\phi=\phi(1)$. With other things equal, given free entry conditions (i.e. anybody can joine and incumbent members have no power to impede the immigration process), the evolutionarily stable equilibrium (ESS) will be reached when the fitness of group members will be equivalent to the one expected for an individual on its own. Joining the group will in fact provide no additional benefit.
+
+This expectations leads to the following question:
+
+\begin{itemize}
+\item {\bf Q1.} \emph{What is the ESS,once we relax the free entry assumption?}
+\item {\bf Q2.} \emph{What happens if group members can impede the entry of new members though violence, subject to a given cost $c$?}
+\end{itemize}
+
+We can have the following set of assumptions:
+
+\begin{itemize}
+\item {\bf A2a.} \emph{The cost for rejecting the invader is paid by one member of the group. If two or members pay the price, they both pay the total amount of cost necessary for rejection.}
+\item {\bf A2b.} \emph{The cost for rejecting the invader is paid by one member of the group. If two members pay the price, they equally share the total amount of cost necessary for rejection}
+\end{itemize}
+
+If we portray {\bf A2a} as 2-person game, we will have the following matrix:
+
+
+\begin{center}
+\begin{tabular} {|l|c|c|}
+\hline
+ &cooperate&defect \\ \hline
+cooperate&$\phi(n)-c$, $\phi(g)-c$&$\phi(n)-c$, $\phi(n)$ \\ \hline
+defect&$\phi(n)$, $\phi(n)-c$&$\phi(n+1)$, $\phi(n+1)$ \\ \hline
+\end{tabular}
+\end{center}
+
+
+We can assume that when $\phi(n+1)\geq\phi(n)$, immigration has a positive benefiti to the group, so incumbent members will all accept the joiner.
+
+If this condition is reversed (i.e. $\phi(n+1)<\phi(n)$), then we need to evaluate the relationship between $\phi(n+1)$ and $\phi(n)-c$:
+
+\begin{itemize}
+\item If $\phi(n) > \phi(n+1) > \phi(n)-c$, defection is the optimal strategy, as the decline in fitness of an additional member is minimal.
+
+\item If $\phi(n) > \phi(n) -c  > \phi(n+1)$. then we have 2 Nash equilibria, with the following solution:
+
+
+\begin{equation}
+ p = 1-\frac{c}{\phi(n)-\phi(n+1)}
+\end{equation}
+
+where $p$ is the probability of cooperation.
+
+
+%\begin{equation}
+%\begin{array}{lcl}
+%p(\phi(n)-c) + (1-p)(\phi(n)-c) & = & p\phi(n) + (1-p)\phi(n+1) \\
+
+%p\phi(n) - pc + \phi(n) - p\phi(n) - c + pc  & = & p\phi(n) + \phi(n+1) - p\phi(n+1) \\
+
+%\phi(n) - c & = & p\phi(n) + \phi(n+1) - p\phi(n+1)\\
+
+%\phi(n) - c - n & = & p\phi(n) - p\phi(n+1)\\
+
+%\phi(n) - c - n & = & p(\phi(n) - \phi(n+1))\\
+
+%p & = & (\phi(n)-\phi(n+1) -c)/(\phi(n)-\phi(n+1))\\
+
+%p & = & (\Delta\phi -c)/(\Delta\phi)\\
+
+%p & = & 1-c/\Delta\phi\\
+%\end{array}
+%\end{equation}
+
+If we use equation \ref{groupfitness}, we can update this as follow:
+
+\begin{equation}
+p = 1-\frac{c}{2B(n+M+0.5)}
+\end{equation}
+
+
+%Changing DF for the original formula (just in case it rings a bell):
+%P = 1-C/2B(n-M+0.5)
+
+%Because:
+%DF = Q-B(n-M)^2 -Q +B(n+1-M)^2
+%DF = Q -Bn^2 -BM^2 +2BnM - Q + B(n^2+n-Mn+n+1-M-Mn-M+M^2)
+%DF = Q -Bn^2 -BM^2 +2BnM - Q + B(n^2+2n-2Mn+1-2M+M^2)
+%DF = Q -Bn^2 -BM^2 +2BnM - Q + Bn^2 + 2Bn - 2BMn + B - 2BM + BM^2
+%DF = 2Bn + B - 2BM
+%DF = B(2n-2M+1)
+%DF = 2B(n-M+0.5)
+
+\end{itemize}
+
+
+
+So far the model does not integrate the effects derived by multiple cooperators. If we define $k$ as the number of cooperators (so that $k\leq n$), we can assume the following two points:
+
+\begin{enumerate}
+\item $p$ should be negatively correlated to $n$, following the volunteer\'s dilemma \todo{citation needed}
+\item with small $k$, there is less incentive to cooperate, while with large $k$, cooperation becomes less costly and more likely to occur.
+\end{enumerate}
+
+The second point can be expressed in 2-players game matrix as follows:
+
+Assuming that $k$ is the number of cooperators (excluding the two players):
+
+\vspace{10 mm}
+
+
+if $k=0$:
+
+\begin{center}
+\begin{tabular} {|l|c|c|}
+\hline
+ &cooperate&defect \\ \hline
+cooperate&$\phi(n)-c/2$, $\phi(g)-c/2$&$\phi(n)-c$, $\phi(n)$ \\ \hline
+defect&$\phi(n)$, $\phi(n)-c$&$\phi(n+1)$, $\phi(n+1)$ \\ \hline
+\end{tabular}
+\end{center}
+
+
+if $k>1$:
+
+\begin{center}
+\begin{tabular} {|l|c|c|}
+\hline
+ &cooperate&defect \\ \hline
+cooperate&$\phi(n)-c/(k+2)$, $\phi(g)-c/(k+2)$&$\phi(n)-c/(k+1)$, $\phi(n)$ \\ \hline
+defect&$\phi(n)$, $\phi(n)-c/(k+1)$&$\phi(n)$, $\phi(n)$ \\ \hline
+\end{tabular}
+\end{center}
+
+\bibliographystyle{plainnat}
+\bibliography{references.bib}
+\end{document}
+
