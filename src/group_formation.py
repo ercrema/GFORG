@@ -9,9 +9,10 @@ class Player:
 		currentFitness  = world.Q - world.B*(pow(world.n - world.M,2))
 		futureFitness = world.Q - world.B*(float(pow(world.n +1 - world.M,2)))
 		coopFitness = currentFitness - world.c
+		individualFitness = world.Q - world.B*(float(pow(1 - world.M,2)))
 
 		p = 1-(world.c/(currentFitness-futureFitness))
-		print '\tfitness with ' + str(world.n) + ' players: ' + str(currentFitness) + ' adding 1 player: ' + str(futureFitness) + ' coop: ' + str(coopFitness) + '  probability of cooperation: ' + str(p)
+		print '\tfitness with ' + str(world.n) + ' players: ' + str(currentFitness) + ' adding 1 player: ' + str(futureFitness) + ' coop: ' + str(coopFitness) + ' single individual fitness: ' + str(individualFitness) + '  probability of cooperation: ' + str(p)
 
 class World:
 	Q = 0.0
@@ -40,7 +41,7 @@ class World:
 
 
 	def game(self):
-		for i in range(self.maxPlayers):
+		for i in range(self.maxPlayers+1):
 			self.step()
 
 def main():
