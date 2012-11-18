@@ -68,7 +68,7 @@ def main():
 	print 'dummy;p;mean fitness;final players'
 	for i in range(0,101):
 		p = float(i)/100.0
-		world = World(p, 1.0, 0, 0.0, 10)
+		world = World(p, 1.0, 5, 0.2, 10)
 		world.game()
 		print 'world with p: ' + str(p) + ' finished with: ' + str(len(world.players)) + ' players and fitness: ' + str(world.meanFitness())
 		print 'dummy;'+str(p)+';'+str(world.meanFitness())+';'+str(len(world.players))
