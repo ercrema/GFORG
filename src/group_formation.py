@@ -8,6 +8,7 @@ class Player:
 		self.fitness = 0.0
 	
 	def play(self, world):
+		self.fitness = 0.0
 		currentFitness  = world.Q - world.B*(pow(world.getNumPlayers() - world.M,2))
 		futureFitness = world.Q - world.B*(float(pow(world.getNumPlayers() +1 - world.M,2)))
 		coopFitness = currentFitness - world.c
@@ -34,10 +35,17 @@ class World:
 		self.maxPlayers = maxPlayers 
 		self.players = []
 		self.players.append(Player(self.p))
+		self.totalFitness = 0.0
 		print 'world created with Q: ' + str(Q) + ' B: ' + str(self.B) + ' M: ' + str(M) + ' and p: ' + str(p)
 
 	def getNumPlayers(self):
 		return len(self.players)
+
+	def getCurrentFitness(self):
+		currentFitness = 0.0
+		for i in self.players:
+			currentFitness = currentFitness + i.fitness
+		return currentFitness/(self.getNumPlayers())
 
 	def step(self):
 		print 'step with current num. players:' + str(self.getNumPlayers())
@@ -46,32 +54,36 @@ class World:
 			if i.play(self) == 1:
 				if reject == 0:
 					reject = 1
+	
+		self.totalFitness = self.totalFitness + self.getCurrentFitness()
+		#print 'total fitness= ' + str(self.totalFitness) + ' current: ' + str(self.getCurrentFitness())
+
 		if reject == 0:
 			self.players.append(Player(self.p))
-			self.n = len(self.players)
-
 
 	def game(self):
 		for i in range(self.maxPlayers):
 			self.step()
 
 	def meanFitness(self):
-		fitness = 0.0
-		for i in self.players:
-			fitness = fitness + i.fitness
-		# maxPlayers - 1 because the first player was crested in the constructor
-		return fitness/len(self.players)
+		#print 'total final fitness: ' + str(self.totalFitness) + ' steps: ' + str(self.maxPlayers)
+		return self.totalFitness/self.maxPlayers
 
 def main():
 	random.seed()
 
-	print 'dummy;p;mean fitness;final players'
-	for i in range(0,101):
-		p = float(i)/100.0
-		world = World(p, 1.0, 5, 0.2, 10)
-		world.game()
-		print 'world with p: ' + str(p) + ' finished with: ' + str(len(world.players)) + ' players and fitness: ' + str(world.meanFitness())
-		print 'dummy;'+str(p)+';'+str(world.meanFitness())+';'+str(len(world.players))
+	f = open('results.csv', 'w')
+	fLog = open('log.csv', 'w')
+	f.write('p;mean_fitness;final_players\n')
+	for n in range(100):
+		for i in range(0,101):
+			p = float(i)/100.0
+			world = World(p, 1.0, 5, 0.2, 10)
+			world.game()
+			fLog.write('world with p: ' + str(p) + ' finished with: ' + str(len(world.players)) + ' players and fitness: ' + str(world.meanFitness())+'\n')
+			f.write(str(p)+';'+str(world.meanFitness())+';'+str(len(world.players))+'\n')
+	f.close()
+	fLog.close()
 
 if __name__ == "__main__":
     main()
