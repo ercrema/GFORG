@@ -17,7 +17,7 @@ class Player:
 		#p = 1.0-(world.c/(currentFitness-futureFitness))
 		print '\tfitness with ' + str(world.getNumPlayers()) + ' players: ' + str(currentFitness) + ' adding 1 player: ' + str(futureFitness) + ' coop: ' + str(coopFitness) + ' single individual fitness: ' + str(individualFitness) + '  probability of cooperation: ' + str(self.p)
 		# reject new individual
-		if random.random() < self.p:
+		if random.random() < (self.p/float(world.getNumPlayers())):
 			self.fitness = self.fitness + coopFitness
 			return 1
 		# don't act 
@@ -76,9 +76,9 @@ def main():
 	fLog = open('log.csv', 'w')
 	f.write('p;mean_fitness;final_players\n')
 	for n in range(100):
-		for i in range(0,101):
-			p = float(i)/100.0
-			world = World(p, 1.0, 5, 0.2, 10)
+		for i in range(0,11):
+			p = float(i)/10.0
+			world = World(p, 1.0, 200, 0.2, 400)
 			world.game()
 			fLog.write('world with p: ' + str(p) + ' finished with: ' + str(len(world.players)) + ' players and fitness: ' + str(world.meanFitness())+'\n')
 			f.write(str(p)+';'+str(world.meanFitness())+';'+str(len(world.players))+'\n')
